@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hiblock>
+	<hiblock>
+		<id>4</id>
+		<name>Source</name>
+		<table_name>source</table_name>
+	</hiblock>
+	<langs>
+		<lang>
+			<id>4</id>
+			<lid>ru</lid>
+			<name>source</name>
+		</lang>
+		<lang>
+			<id>4</id>
+			<lid>en</lid>
+			<name>source</name>
+		</lang>
+	</langs>
+	<fields>
+		<field>
+			<id>42</id>
+			<entity_id>HLBLOCK_4</entity_id>
+			<field_name>UF_CODE</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id>CODE</xml_id>
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>Y</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp />
+				<min_length>0</min_length>
+				<max_length>0</max_length>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en>Code</en>
+				<ru>Код</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en>Code</en>
+				<ru>Код</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en>Code</en>
+				<ru>Код</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>43</id>
+			<entity_id>HLBLOCK_4</entity_id>
+			<field_name>UF_ACTIVE</field_name>
+			<user_type_id>string</user_type_id>
+			<xml_id>ACTIVE</xml_id>
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<rows>1</rows>
+				<regexp>#^[YN]$#</regexp>
+				<min_length>1</min_length>
+				<max_length>1</max_length>
+				<default_value>Y</default_value>
+			</settings>
+			<edit_form_label>
+				<en>Active</en>
+				<ru>Активность</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en>Active</en>
+				<ru>Активность</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en>Active</en>
+				<ru>Активность</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>string</base_type>
+		</field>
+		<field>
+			<id>44</id>
+			<entity_id>HLBLOCK_4</entity_id>
+			<field_name>UF_PRICE</field_name>
+			<user_type_id>double</user_type_id>
+			<xml_id>PRICE</xml_id>
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<precision>2</precision>
+				<size>20</size>
+				<min_value>0</min_value>
+				<max_value>0</max_value>
+				<default_value />
+			</settings>
+			<edit_form_label>
+				<en>Price</en>
+				<ru>Цена</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en>Price</en>
+				<ru>Цена</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en>Price</en>
+				<ru>Цена</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>double</base_type>
+		</field>
+		<field>
+			<id>45</id>
+			<entity_id>HLBLOCK_4</entity_id>
+			<field_name>UF_FILE</field_name>
+			<user_type_id>file</user_type_id>
+			<xml_id>FILE</xml_id>
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<size>20</size>
+				<list_width>200</list_width>
+				<list_height>200</list_height>
+				<max_show_size>0</max_show_size>
+				<max_allowed_size>0</max_allowed_size>
+				<extensions />
+				<target_blank>Y</target_blank>
+			</settings>
+			<edit_form_label>
+				<en>File</en>
+				<ru>Файл</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en>File</en>
+				<ru>Файл</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en>File</en>
+				<ru>Файл</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>file</base_type>
+		</field>
+		<field>
+			<id>46</id>
+			<entity_id>HLBLOCK_4</entity_id>
+			<field_name>UF_CITY</field_name>
+			<user_type_id>enumeration</user_type_id>
+			<xml_id>CITY</xml_id>
+			<sort>100</sort>
+			<multiple>N</multiple>
+			<mandatory>N</mandatory>
+			<show_filter>N</show_filter>
+			<show_in_list>Y</show_in_list>
+			<edit_in_list>Y</edit_in_list>
+			<is_searchable>N</is_searchable>
+			<settings>
+				<display>LIST</display>
+				<list_height>5</list_height>
+				<caption_no_value />
+				<show_no_value>Y</show_no_value>
+			</settings>
+			<edit_form_label>
+				<en>City</en>
+				<ru>Город</ru>
+			</edit_form_label>
+			<list_column_label>
+				<en>City</en>
+				<ru>Город</ru>
+			</list_column_label>
+			<list_filter_label>
+				<en>City</en>
+				<ru>Город</ru>
+			</list_filter_label>
+			<error_message>
+				<en />
+				<ru />
+			</error_message>
+			<help_message>
+				<en />
+				<ru />
+			</help_message>
+			<base_type>enum</base_type>
+			<enums>
+				<enum0>
+					<id>4</id>
+					<user_field_id>46</user_field_id>
+					<value>Иркутск</value>
+					<def>N</def>
+					<sort>500</sort>
+					<xml_id>IRK</xml_id>
+				</enum0>
+				<enum1>
+					<id>5</id>
+					<user_field_id>46</user_field_id>
+					<value>Санкт-Перербург</value>
+					<def>N</def>
+					<sort>500</sort>
+					<xml_id>SPB</xml_id>
+				</enum1>
+				<enum2>
+					<id>6</id>
+					<user_field_id>46</user_field_id>
+					<value>Москва</value>
+					<def>N</def>
+					<sort>500</sort>
+					<xml_id>MSC</xml_id>
+				</enum2>
+				<enum3>
+					<id>7</id>
+					<user_field_id>46</user_field_id>
+					<value>Новосибирск</value>
+					<def>N</def>
+					<sort>500</sort>
+					<xml_id>NSK</xml_id>
+				</enum3>
+			</enums>
+		</field>
+	</fields>
+	<items>
+		<item>
+			<id>1</id>
+			<uf_code>one</uf_code>
+			<uf_active>Y</uf_active>
+			<uf_price>13600</uf_price>
+			<uf_file>iblock/a6a/a6ac7062226840c2a1034bdd5ab9f0ed.jpeg</uf_file>
+			<uf_city>Иркутск</uf_city>
+		</item>
+		<item>
+			<id>2</id>
+			<uf_code>two</uf_code>
+			<uf_active />
+			<uf_price>21</uf_price>
+			<uf_file>0</uf_file>
+			<uf_city>Москва</uf_city>
+		</item>
+		<item>
+			<id>3</id>
+			<uf_code>three</uf_code>
+			<uf_active>Y</uf_active>
+			<uf_price>1010</uf_price>
+			<uf_file>uf/20a/20abd6ac13e3bc4e6ddd240098e42914.jpg</uf_file>
+			<uf_city>Новосибирск</uf_city>
+		</item>
+		<item>
+			<id>4</id>
+			<uf_code>four</uf_code>
+			<uf_active>Y</uf_active>
+			<uf_price>0.1</uf_price>
+			<uf_file>uf/52a/52a23bb296b9a8ae3f0fb8562251f7f9.jpeg</uf_file>
+			<uf_city />
+		</item>
+		<item>
+			<id>5</id>
+			<uf_code>five</uf_code>
+			<uf_active>Y</uf_active>
+			<uf_price>1</uf_price>
+			<uf_file>iblock/61b/61bc3f773e84e1935ae673a07a49f49c.jpg</uf_file>
+			<uf_city>Иркутск</uf_city>
+		</item>
+		<item>
+			<id>6</id>
+			<uf_code>six</uf_code>
+			<uf_active>Y</uf_active>
+			<uf_price />
+			<uf_file>uf/6a5/6a5b9d1986882f4e2f365d587234b6d2.jpg</uf_file>
+			<uf_city>Санкт-Перербург</uf_city>
+		</item>
+	</items>
+</hiblock>
