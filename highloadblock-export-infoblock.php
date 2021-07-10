@@ -3,15 +3,22 @@ $_SERVER["DOCUMENT_ROOT"] = "/home/bitrix/www";
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 
-use Bitrix\Main\Application;
 use Bitrix\Main\Loader;
 use Bitrix\Highloadblock as HL;
-use Bitrix\Main\Entity;
-
-Loader::includeModule("highloadblock");
 
 const IBLOCK_ID = 6;
 const HLBLOCK_ID = 4;
+const FINAL_MESSAGE = "...........／＞　 フ.....................\n　　　　　| 　_　 _|\n　 　　　／`ミ _x 彡\n" .
+    "　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)_)\n　＼二つ\n";
+
+
+try {
+    Loader::includeModule("highloadblock");
+} catch (\Bitrix\Main\LoaderException $e) {
+    print_r($e->getMessage());
+    return;
+}
+
 
 class HighloadblockHelper
 {
@@ -29,18 +36,27 @@ class HighloadblockHelper
         return $values;
     }
 
-
     public static function getArrayDataByIdHL(int $idHL): array
     {
         $hlblock = HL\HighloadBlockTable::getById($idHL)->fetch();
-        $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+        try {
+            $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+        } catch (\Bitrix\Main\SystemException $e) {
+            print_r($e->getMessage());
+            return [];
+        }
         $entityData = $entity->getDataClass();
 
-        $rsData = $entityData::getList(array(
-            "select" => array("*"),
-            "order" => array("ID" => "ASC"),
-            "filter" => array("UF_ACTIVE" => "Y")  // Задаем параметры фильтра выборки
-        ));
+        try {
+            $rsData = $entityData::getList(array(
+                "select" => array("*"),
+                "order" => array("ID" => "ASC"),
+                "filter" => array("UF_ACTIVE" => "Y")  // Задаем параметры фильтра выборки
+            ));
+        } catch (\Bitrix\Main\ArgumentException $e) {
+            print_r($e->getMessage());
+            return [];
+        }
 
         $infoHL = [];
         while ($arData = $rsData->Fetch()) {
@@ -89,7 +105,7 @@ class IBlockHelper
             'XML_ID' => $xmlId,
         ]);
         if ((int)$valueId < 0) {
-            throw new \Exception('Unable to add a value');
+            throw new \Exception('Unable to add a value in property enum for code = ' . $xmlId);
         }
         return [
             "ID" => $valueId,
@@ -112,6 +128,8 @@ class IBlockHelper
                 ];
                 $elemId = $newEnum['ID'];
             } catch (Exception $e) {
+                print_r($e->getMessage() . "\n");
+
                 return "";
             }
         }
@@ -124,13 +142,13 @@ function getArrayNewValueProperties(array &$enumPropertyCities, array &$codesByP
 {
     $cityId = "";
 
-    if (isset($elemHL["UF_CITY"]) && $elemHL["UF_CITY"] !== "") {
+    if (isset($elemHL["UF_CITY"], $params["CITY"]["XML_ID"], $params["CITY"]["VALUE"]) && $elemHL["UF_CITY"] !== "") {
         $cityId = IBlockHelper::getIdPropertyEnumElem($enumPropertyCities, $params["CITY"]["XML_ID"],
-            $params["CITY"]["XML_ID"], $params["CITY"]["ID_PROPERTY"]);
+            $params["CITY"]["VALUE"], $params["CITY"]["ID_PROPERTY"]);
     }
 
     $codeId = IBlockHelper::getIdPropertyEnumElem($codesByProperty, $params["CODES"]["XML_ID"],
-        $params["CODES"]["XML_ID"], $params["CODES"]["ID_PROPERTY"]);
+        $params["CODES"]["VALUE"], $params["CODES"]["ID_PROPERTY"]);
 
     return [
         $properties["ACTIVE"] => $elemHL["UF_ACTIVE"],
@@ -145,7 +163,7 @@ function getArrayNewValueProperties(array &$enumPropertyCities, array &$codesByP
 // список городов, описанных в поле highload-блока
 $cities = HighloadblockHelper::getArrayValuesUserFieldTypeListByName("UF_CITY");
 
-// информация из хл блока
+// информация из highload-блока
 $infoHL = HighloadblockHelper::getArrayDataByIdHL(HLBLOCK_ID);
 
 // свойства из инфоблока
@@ -156,15 +174,13 @@ $enumPropertyCities = IBlockHelper::getArrayPropertyEnum(IBLOCK_ID, "CITY");
 
 $codes = array_keys($infoHL);
 
-
 $arSelect = array("ID", "IBLOCK_ID", "NAME", "DATE_ACTIVE_FROM", "PROPERTY_*");
 $arFilter = array("IBLOCK_ID" => IBLOCK_ID, 'PROPERTY_CODE' => $codes);
 
 $iblockElements = CIBlockElement::GetList(array(), $arFilter, false, array("nPageSize" => 50), $arSelect);
-echo "Начинаем замену значений существующих элементов с одинаковым кодом: ";
-
 $codesByProperty = IBlockHelper::getArrayPropertyEnum(IBLOCK_ID, "CODES");
 
+echo "Начинаем замену значений существующих элементов с одинаковым кодом \n";
 
 while ($ob = $iblockElements->GetNextElement()) {
     $arFields = $ob->GetFields();
@@ -195,8 +211,13 @@ while ($ob = $iblockElements->GetNextElement()) {
         ]
     );
 
+    echo "Замена значений элемента с кодом " . $elemHL["UF_CODE"] . " прошло успешно\n";
     $elemHL['isOverwritten'] = true;
 }
+
+echo "Закончили замену значений существующих элементов с одинаковым кодом\n\n";
+
+echo "Начинаем добавление новых элементов \n";
 
 foreach ($infoHL as $elemHL) {
     if ($elemHL["isOverwritten"]) {
@@ -216,6 +237,7 @@ foreach ($infoHL as $elemHL) {
         ],
     ];
 
+
     $arrNewValueProperties = getArrayNewValueProperties($enumPropertyCities, $codesByProperty, $params,
         $elemHL, $properties);
 
@@ -228,5 +250,12 @@ foreach ($infoHL as $elemHL) {
         ]
     );
 
+    echo "Добавление элемента с кодом " . $elemHL["UF_CODE"] . " прошло успешно\n";
+
     $elemHL["isOverwritten"] = true;
 }
+echo "Закончили добавление новых элементов\n\n";
+
+
+echo "ВСЕ ГОТОВО\n\n";
+echo FINAL_MESSAGE;

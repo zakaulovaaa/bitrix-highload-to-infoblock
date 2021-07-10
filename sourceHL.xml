@@ -302,7 +302,7 @@
 		<item>
 			<id>5</id>
 			<uf_code>five</uf_code>
-			<uf_active>Y</uf_active>
+			<uf_active>N</uf_active>
 			<uf_price>1</uf_price>
 			<uf_file>iblock/61b/61bc3f773e84e1935ae673a07a49f49c.jpg</uf_file>
 			<uf_city>Иркутск</uf_city>
@@ -311,7 +311,7 @@
 			<id>6</id>
 			<uf_code>six</uf_code>
 			<uf_active>Y</uf_active>
-			<uf_price />
+			<uf_price>999</uf_price>
 			<uf_file>uf/6a5/6a5b9d1986882f4e2f365d587234b6d2.jpg</uf_file>
 			<uf_city>Санкт-Перербург</uf_city>
 		</item>
