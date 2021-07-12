@@ -6,7 +6,7 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.
 use Bitrix\Main\Loader;
 use Bitrix\Highloadblock as HL;
 
-const IBLOCK_ID = 6;
+const IBLOCK_ID = 12;
 const HLBLOCK_ID = 4;
 const FINAL_MESSAGE = "...........／＞　 フ.....................\n　　　　　| 　_　 _|\n　 　　　／`ミ _x 彡\n" .
     "　　 　 /　　　 　 |\n　　　 /　 ヽ　　 ﾉ\n　／￣|　　 |　|　|\n　| (￣ヽ＿_ヽ_)_)\n　＼二つ\n";
@@ -135,6 +135,7 @@ class IBlockHelper
         }
         return $elemId;
     }
+
 }
 
 function getArrayNewValueProperties(array &$enumPropertyCities, array &$codesByProperty, array $params,
@@ -160,6 +161,24 @@ function getArrayNewValueProperties(array &$enumPropertyCities, array &$codesByP
     ];
 }
 
+function checkPropertyCodes(array &$properties): void {
+    if (in_array("CODES", array_keys($properties))) {
+        return;
+    }
+    $ibp = new CIBlockProperty;
+    $propID = $ibp->Add([
+        "NAME" => "Коды",
+        "ACTIVE" => "Y",
+        "SORT" => "100",
+        "CODE" => "CODES",
+        "PROPERTY_TYPE" => "L",
+        "IBLOCK_ID" => IBLOCK_ID
+    ]);
+    $properties['CODES'] = $propID;
+}
+
+
+
 // список городов, описанных в поле highload-блока
 $cities = HighloadblockHelper::getArrayValuesUserFieldTypeListByName("UF_CITY");
 
@@ -168,6 +187,7 @@ $infoHL = HighloadblockHelper::getArrayDataByIdHL(HLBLOCK_ID);
 
 // свойства из инфоблока
 $properties = IBlockHelper::getArrayPropertyByIBlockId(IBLOCK_ID);
+checkPropertyCodes($properties);
 
 // список городов из свойства инфоблока
 $enumPropertyCities = IBlockHelper::getArrayPropertyEnum(IBLOCK_ID, "CITY");
